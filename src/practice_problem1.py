@@ -40,14 +40,14 @@ def main():
     ####################################################################
 
     run_test_init()
-#   run_test_append_string()
-#   run_test_double()
-#   run_test_shrink()
-#   run_test_double_then_shrink()
-    #run_test_reset()
+    run_test_append_string()
+    run_test_double()
+    run_test_shrink()
+    run_test_double_then_shrink()
+    run_test_reset()
     run_test_steal()
-#   run_test_get_history()
-#   run_test_combined_box()
+    run_test_get_history()
+    run_test_combined_box()
 
 
 ########################################################################
@@ -228,18 +228,16 @@ class Box(object):
 
     def shrink(self, new_volume):
         s = ''
-        new_contents = ''
-        track = self.contents
+        new = ''
+        for k in range(len(self.contents)):
+            if len(new) < new_volume:
+                new += self.contents[k]
+            else:
+                s += self.contents[k]
+        self.contents = new
         self.volume = new_volume
-        if new_volume > len(track):
-                return s
-        else:
-            for k in range(new_volume):
-                newcontents = new_contents + track[k]
-        for k in range(len(new_contents), len(track)):
-            s = s + track[k]
-        self.contents = new_contents
         return s
+
         """
         What comes in:
           -- self
@@ -366,12 +364,9 @@ class Box(object):
         # --------------------------------------------------------------
 
     def steal(self, other_box):
-        self.contents = self.contents + other_box.contents
-        if len(self.contents) >= self.volume:
-            extra = len(other_box.contents) - self.volume
-            other_box.contents = extra
-
-        """
+        s = self.append_string(other_box.contents)
+        other_box.contents = s
+    """
         What comes in:
           -- self
           -- Another Box
