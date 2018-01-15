@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  IMPLEMENTING CLASSES.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and PRobert Belk.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -39,15 +39,15 @@ def main():
     # UN-comment tests as you work the problems.
     ####################################################################
 
-#     run_test_init()
-#     run_test_append_string()
-#     run_test_double()
-#     run_test_shrink()
-#     run_test_double_then_shrink()
-#     run_test_reset()
-#     run_test_steal()
-#     run_test_get_history()
-#     run_test_combined_box()
+    run_test_init()
+#   run_test_append_string()
+#   run_test_double()
+#   run_test_shrink()
+#   run_test_double_then_shrink()
+    #run_test_reset()
+    run_test_steal()
+#   run_test_get_history()
+#   run_test_combined_box()
 
 
 ########################################################################
@@ -63,6 +63,11 @@ class Box(object):
     """
 
     def __init__(self, contents, volume):
+        self.contents = contents
+        if len(contents) > volume:
+            self.contents = ''
+        self.volume = volume
+        self.orginal = self.contents
         """
         What comes in:
           -- self
@@ -94,7 +99,7 @@ class Box(object):
           :type volume: int
         """
         # --------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -158,6 +163,9 @@ class Box(object):
         # --------------------------------------------------------------
 
     def double(self):
+        self.contents = self.contents * 2
+        return self.contents
+
         """
         What comes in:
           -- self
@@ -306,6 +314,7 @@ class Box(object):
         # --------------------------------------------------------------
 
     def reset(self):
+        self.contents = self.orginal
         """
         What comes in:
           -- self
@@ -315,7 +324,7 @@ class Box(object):
           when this Box was constructed.
         """
         # --------------------------------------------------------------
-        # TODO: 7. Implement and test this function.
+        # DONE: 7. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -325,6 +334,11 @@ class Box(object):
         # --------------------------------------------------------------
 
     def steal(self, other_box):
+        self.contents = self.contents + other_box.contents
+        if len(self.contents) >= self.volume:
+            extra = len(other_box.contents) - self.volume
+            other_box.contents = extra
+
         """
         What comes in:
           -- self
